@@ -1,0 +1,6 @@
+Model,Best Parameters,MAE,MSE,R2
+Ridge,{'alpha': 10.0},0.5511063716569853,0.604511255400022,0.3132596960591125
+Lasso,{'alpha': 0.01},0.5414588939390385,0.600055035121038,0.3183220766872318
+Random Forest Regressor,"{'n_estimators': 50, 'min_samples_split': 10, 'min_samples_leaf': 2, 'max_depth': 20}",0.41499257137638296,0.4062641316497006,0.5384735176439761
+Gradient Boosting Regressor,"{'n_estimators': 50, 'max_depth': 3, 'learning_rate': 0.2}",0.44884427707906926,0.4809681031188101,0.4536078884038067
+XGBoost Regressor,"{'n_estimators': 50, 'learning_rate': 0.2, 'max_depth': 3}",0.4489392192364591,0.48470823874332986,0.4493589983250551
