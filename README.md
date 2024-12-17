@@ -1,5 +1,4 @@
 # GWP
-Here’s the **README.md** content:
 
 ---
 
@@ -116,4 +115,3 @@ This project is part of the **HubbleMind Capstone** initiative. Special thanks t
 
 --- 
 
-Let me know if you’d like further edits! 😊
