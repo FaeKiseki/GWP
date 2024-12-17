@@ -80,35 +80,6 @@ The following models were evaluated based on Mean Squared Error (MSE) and R-squa
 
 ---
 
-## **Requirements**
-
-The project dependencies are listed in the `requirements.txt` file:
-
-```
-Flask==2.3.2
-numpy==1.23.5
-pandas==1.5.3
-scikit-learn==1.2.0
-matplotlib==3.7.2
-xgboost==1.7.4
-```
-
-Install them using:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## **Future Enhancements**
-
-- **Feature Engineering**: Create derived features like `incentive_per_worker` or `efficiency_ratios`.
-- **Cloud Deployment**: Host the application on AWS, Azure, or Heroku for real-time usage.
-- **Dashboards**: Develop interactive dashboards for better visualization.
-
----
-
 ## **Acknowledgments**
 
 This project is part of the **HubbleMind Capstone** initiative. Special thanks to the team for providing the dataset and project structure.
