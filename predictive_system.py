@@ -20,14 +20,13 @@ with open(model_path, 'rb') as model_file:
 with open(scaler_path, 'rb') as scaler_file:
     scaler = pickle.load(scaler_file)
 
-# Define the feature columns (must match training data order)
+# Feature columns used during model training
 feature_columns = [
-    "team", "targeted_productivity", "smv", "wip", "over_time",
-    "incentive", "idle_time", "idle_men", "no_of_style_change",
-    "no_of_workers", "quarter_Quarter2", "quarter_Quarter3", 
-    "quarter_Quarter4", "quarter_Quarter5", "department_finishing ",
-    "department_sweing", "day_Saturday", "day_Sunday", "day_Thursday",
-    "day_Tuesday", "day_Wednesday", "month", "day_of_week"
+    "team", "targeted_productivity", "smv", "wip", "over_time", "incentive",
+    "idle_time", "idle_men", "no_of_style_change", "no_of_workers", 
+    "quarter_Quarter2", "quarter_Quarter3", "quarter_Quarter4", "quarter_Quarter5",
+    "department_finishing ", "department_sweing", "day_Saturday", "day_Sunday", 
+    "day_Thursday", "day_Tuesday", "day_Wednesday", "month", "day_of_week"
 ]
 
 @app.route('/')
@@ -37,27 +36,35 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    """Handle prediction requests."""
     try:
-        # Collect input data from the form
-        input_data = {}
-        for col in feature_columns:
-            input_value = request.form.get(col, default=0)
-            input_data[col] = float(input_value) if input_value else 0.0
+        # Receive JSON data
+        input_data = request.get_json()
+        print("Raw Input Data:", input_data)
 
         # Convert input data to DataFrame
         input_df = pd.DataFrame([input_data])
+
+        # One-Hot Encoding for categorical features
+        input_df = pd.get_dummies(input_df, columns=['quarter', 'day', 'department'], drop_first=False)
+
+        # Add missing columns with zeros to match training features
+        for col in feature_columns:
+            if col not in input_df.columns:
+                input_df[col] = 0
+
+        # Ensure column order matches the training set
+        input_df = input_df[feature_columns]
 
         # Scale the input data
         scaled_input = scaler.transform(input_df)
 
         # Make predictions
         prediction = model.predict(scaled_input)[0]
+
         return jsonify({"prediction": round(prediction, 4)})
 
     except Exception as e:
         return jsonify({"error": str(e)})
 
-# Run the Flask app
 if __name__ == "__main__":
     app.run(debug=True)
